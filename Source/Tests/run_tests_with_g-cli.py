@@ -1,3 +1,4 @@
+
 import argparse
 import logging
 import os
@@ -21,7 +22,7 @@ def run_all_tests(labview_version: str):
     test_directory = os.path.abspath(os.path.dirname(__file__))
     test_runner_vi = os.path.join(test_directory , "run_tests_with_detailed_report_g-cli.vi")
     _logger.debug(f"Launching {test_runner_vi}.")
-    kwargs = ["g-cli", "--lv-ver", labview_version, "--x64", "--kill", os.path.normpath(test_runner_vi)]
+    kwargs = ["g-cli", "--lv-ver", labview_version, "--x64", "--kill", "--kill-timeout", "20000", os.path.normpath(test_runner_vi)]
     test_result = subprocess.run(kwargs, capture_output= True)
     
     formatted_stdout = test_result.stdout.decode().replace('\r\n','\n').strip()
